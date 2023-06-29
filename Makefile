@@ -1,5 +1,5 @@
 CC      = gcc
-CFLAGS  = -std=c11 -pedantic -D_XOPEN_SOURCE=700 -Wall -Werror -pthread
+CFLAGS  = -std=c11 -pedantic -D_XOPEN_SOURCE=700 -Wall -Werror -pthread -g
 LDFLAGS = -pthread
 RM      = rm -f
 
@@ -11,7 +11,7 @@ clean:
 	$(RM) palim palim.o
 
 palim: palim.o sem.o
-	$(CC) ${LDFLAGS} -o $@ $^
+	$(CC) ${LDFLAGS} -o  $@ $^
 
 %.o: %.c
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) $<

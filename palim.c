@@ -199,7 +199,9 @@ static void* processTree(void* path) {
 
 static void* processDir(char* path) {
 	DIR * dirPointer = opendir(path);
-	die("opendir");
+	if(errno){
+		die("opendir");
+	}
 
 	incStat(&stats.dirs);
 	V(newDataSignal);
@@ -213,9 +215,10 @@ static void* processDir(char* path) {
 		if(strcmp(entry->d_name,".")!=0 && strcmp(entry->d_name,"..")){
 			processEntry(path,entry);
 		}
-		errno = 0;
+		errno=0;
+		entry= readdir(dirPointer);
 
-		entry = readdir(dirPointer);
+		
 	}
 	if(errno){
 		die("readdir");
