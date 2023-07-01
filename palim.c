@@ -32,7 +32,7 @@ static SEM* statsMutex;
 static SEM* newDataSignal;
 static SEM* grepThreadsSem;
 
-static char* searchString;
+static char* search_string;
 
 static void usage(void) {
 	fprintf(stderr, "Usage: palim <string> <max-grep-threads> <trees...>\n");
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
 		usage();
 	}
 
-	searchString = argv[1];
+	search_string = argv[1];
 
 	statsMutex = semCreate(1);
 
@@ -325,7 +325,7 @@ static void* processFile(void* path) {
 		incStat(&stats.lines);
 
 
-		if(strstr(line,searchString)){
+		if(strstr(line,search_string)){
 			incStat(&stats.lineHits);
 		}
 
